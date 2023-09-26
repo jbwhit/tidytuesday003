@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "tidytuesday003"
+  site-url: "https://jbwhit.github.io/tidytuesday003"
+  description: "Hockey Goals"
+  repo-branch: main
+  repo-url: "https://github.com/jbwhit/tidytuesday003"
