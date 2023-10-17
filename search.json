@@ -1,0 +1,79 @@
+[
+  {
+    "objectID": "core.html",
+    "href": "core.html",
+    "title": "Hockey Goals",
+    "section": "",
+    "text": "# this next line shouldn't have to be here\n\n\n\n\n\nimport warnings\n\nimport matplotlib.pyplot as plt\nimport pandas as pd\nimport seaborn as sns\nfrom matplotlib.ticker import FuncFormatter\nfrom pandas.plotting import register_matplotlib_converters\nfrom ydata_profiling import ProfileReport\n\nregister_matplotlib_converters()\nsns.set()\nsns.set_context(\"notebook\")\nplt.rcParams[\"figure.figsize\"] = 10, 6\npd.options.display.max_columns = None\npd.options.display.max_rows = None\npd.options.display.precision = 4\nwarnings.simplefilter(action=\"ignore\", category=FutureWarning)\n\ndollar_formatter = FuncFormatter(lambda x, pos: f\"${x:,.0f}\")\nthousands_formatter = FuncFormatter(lambda x, pos: f\"{x:,.0f}\")"
+  },
+  {
+    "objectID": "core.html#imports",
+    "href": "core.html#imports",
+    "title": "Hockey Goals",
+    "section": "",
+    "text": "# this next line shouldn't have to be here\n\n\n\n\n\nimport warnings\n\nimport matplotlib.pyplot as plt\nimport pandas as pd\nimport seaborn as sns\nfrom matplotlib.ticker import FuncFormatter\nfrom pandas.plotting import register_matplotlib_converters\nfrom ydata_profiling import ProfileReport\n\nregister_matplotlib_converters()\nsns.set()\nsns.set_context(\"notebook\")\nplt.rcParams[\"figure.figsize\"] = 10, 6\npd.options.display.max_columns = None\npd.options.display.max_rows = None\npd.options.display.precision = 4\nwarnings.simplefilter(action=\"ignore\", category=FutureWarning)\n\ndollar_formatter = FuncFormatter(lambda x, pos: f\"${x:,.0f}\")\nthousands_formatter = FuncFormatter(lambda x, pos: f\"{x:,.0f}\")"
+  },
+  {
+    "objectID": "core.html#constants",
+    "href": "core.html#constants",
+    "title": "Hockey Goals",
+    "section": "Constants",
+    "text": "Constants\n\nDAYS_IN_YEAR = 365.25"
+  },
+  {
+    "objectID": "core.html#data",
+    "href": "core.html#data",
+    "title": "Hockey Goals",
+    "section": "Data",
+    "text": "Data\n\nRaw\n\ngame_goals_raw = pd.read_csv(\n    \"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv\"\n)\ntop_250_raw = pd.read_csv(\n    \"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/top_250.csv\"\n)\nseason_goals_raw = pd.read_csv(\n    \"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/season_goals.csv\"\n)\n\n\ngame_goals_raw.head()\n\n\n\n\n\n\n\n\n\n\n\nplayer\nseason\nrank\ndate\ngame_num\nage\nteam\nat\nopp\nlocation\noutcome\ngoals\nassists\npoints\nplus_minus\npenalty_min\ngoals_even\ngoals_powerplay\ngoals_short\ngoals_gamewinner\nassists_even\nassists_powerplay\nassists_short\nshots\nshot_percent\n\n\n\n\n0\nAlex Ovechkin\n2006\n1\n2005-10-05\n1\n20-018\nWSH\nNaN\nCBJ\nHome\nW\n2\n0\n2\n1\n2\n1\n1\n0\n0\nNaN\nNaN\nNaN\n5\n40.0\n\n\n1\nAlex Ovechkin\n2006\n2\n2005-10-07\n2\n20-020\nWSH\nNaN\nATL\nHome\nL\n0\n1\n1\n-2\n0\n0\n0\n0\n0\nNaN\nNaN\nNaN\n1\n0.0\n\n\n2\nAlex Ovechkin\n2006\n3\n2005-10-08\n3\n20-021\nWSH\n@\nATL\nAway\nL\n0\n1\n1\n0\n4\n0\n0\n0\n0\nNaN\nNaN\nNaN\n3\n0.0\n\n\n3\nAlex Ovechkin\n2006\n4\n2005-10-10\n4\n20-023\nWSH\nNaN\nNYR\nHome\nW\n1\n0\n1\n1\n2\n0\n1\n0\n1\nNaN\nNaN\nNaN\n6\n16.7\n\n\n4\nAlex Ovechkin\n2006\n5\n2005-10-12\n5\n20-025\nWSH\n@\nCAR\nAway\nL\n1\n0\n1\n0\n0\n1\n0\n0\n0\nNaN\nNaN\nNaN\n6\n16.7\n\n\n\n\n\n\n\n\ntop_250_raw.head()\n\n\n\n\n\n\n\n\n\n\n\nraw_rank\nplayer\nyears\ntotal_goals\nurl_number\nraw_link\nlink\nactive\nyr_start\n\n\n\n\n0\n1.0\nWayne Gretzky\n1979-99\n894\n1\n/players/g/gretzwa01.html\nhttps://www.hockey-reference.com/players/g/gre...\nRetired\n1979\n\n\n1\n2.0\nGordie Howe\n1946-80\n801\n2\n/players/h/howego01.html\nhttps://www.hockey-reference.com/players/h/how...\nRetired\n1946\n\n\n2\n3.0\nJaromir Jagr\n1990-18\n766\n3\n/players/j/jagrja01.html\nhttps://www.hockey-reference.com/players/j/jag...\nRetired\n1990\n\n\n3\n4.0\nBrett Hull\n1986-06\n741\n4\n/players/h/hullbr01.html\nhttps://www.hockey-reference.com/players/h/hul...\nRetired\n1986\n\n\n4\n5.0\nMarcel Dionne\n1971-89\n731\n5\n/players/d/dionnma01.html\nhttps://www.hockey-reference.com/players/d/dio...\nRetired\n1971\n\n\n\n\n\n\n\n\nseason_goals_raw.head()\n\n\n\n\n\n\n\n\n\n\n\nrank\nposition\nhand\nplayer\nyears\ntotal_goals\nstatus\nyr_start\nseason\nage\nteam\nleague\nseason_games\ngoals\nassists\npoints\nplus_minus\npenalty_min\ngoals_even\ngoals_power_play\ngoals_short_handed\ngoals_game_winner\nheadshot\n\n\n\n\n0\n1\nC\nLeft\nWayne Gretzky\n1979-99\n894\nRetired\n1979\n1978-79\n18\nTOT\nWHA\n80\n46\n64\n110\n20.0\n19\nNaN\nNaN\nNaN\nNaN\nhttps://d9kjk42l7bfqz.cloudfront.net/req/20191...\n\n\n1\n1\nC\nLeft\nWayne Gretzky\n1979-99\n894\nRetired\n1979\n1978-79\n18\nINR\nWHA\n8\n3\n3\n6\n-3.0\n0\n3.0\n0.0\n0.0\nNaN\nhttps://d9kjk42l7bfqz.cloudfront.net/req/20191...\n\n\n2\n1\nC\nLeft\nWayne Gretzky\n1979-99\n894\nRetired\n1979\n1978-79\n18\nEDO\nWHA\n72\n43\n61\n104\n23.0\n19\n34.0\n9.0\n0.0\nNaN\nhttps://d9kjk42l7bfqz.cloudfront.net/req/20191...\n\n\n3\n1\nC\nLeft\nWayne Gretzky\n1979-99\n894\nRetired\n1979\n1979-80\n19\nEDM\nNHL\n79\n51\n86\n137\n14.0\n21\n37.0\n13.0\n1.0\n6.0\nhttps://d9kjk42l7bfqz.cloudfront.net/req/20191...\n\n\n4\n1\nC\nLeft\nWayne Gretzky\n1979-99\n894\nRetired\n1979\n1980-81\n20\nEDM\nNHL\n80\n55\n109\n164\n41.0\n28\n36.0\n15.0\n4.0\n3.0\nhttps://d9kjk42l7bfqz.cloudfront.net/req/20191..."
+  },
+  {
+    "objectID": "core.html#functions",
+    "href": "core.html#functions",
+    "title": "Hockey Goals",
+    "section": "Functions",
+    "text": "Functions\n\ndef raw_game_to_clean(raw):\n    return raw.assign(\n        years_old=(\n            (\n                ((raw[\"age\"].str.split(\"-\").str[0].astype(float)) * DAYS_IN_YEAR)\n                + raw[\"age\"].str.split(\"-\").str[1].astype(float)\n            )\n            / DAYS_IN_YEAR\n        )\n    )\n\n\ndef raw_top_to_clean(raw):\n    # prob ffill raw_rank\n    return raw\n\n\ndef raw_season_to_clean(raw):\n    return raw\n\n\ndef list_of_top_n_playernames(top_n=8):\n    return top_250.iloc[:top_n][\"player\"].to_list()\n\n\ngame_goals = raw_game_to_clean(game_goals_raw)\ntop_250 = raw_top_to_clean(top_250_raw)\nseason_goals = raw_season_to_clean(season_goals_raw)"
+  },
+  {
+    "objectID": "core.html#eda",
+    "href": "core.html#eda",
+    "title": "Hockey Goals",
+    "section": "EDA",
+    "text": "EDA\n\ngame_profile = ProfileReport(game_goals, config_file=\"config_minimal.yaml\")\ntop_profile = ProfileReport(top_250, config_file=\"config_minimal.yaml\")\nseason_profile = ProfileReport(season_goals, config_file=\"config_minimal.yaml\")\n\n\ngame_profile\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n&lt;class 'ydata_profiling.profile_report.ProfileReport'&gt;.__repr__ returned empty string\n\n\n\n\ntop_profile\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n&lt;class 'ydata_profiling.profile_report.ProfileReport'&gt;.__repr__ returned empty string\n\n\n\n\nseason_profile\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n&lt;class 'ydata_profiling.profile_report.ProfileReport'&gt;.__repr__ returned empty string"
+  },
+  {
+    "objectID": "core.html#plots",
+    "href": "core.html#plots",
+    "title": "Hockey Goals",
+    "section": "Plots",
+    "text": "Plots\n\nWarning – dataset might have problems – the sum of the goals in the seasons don’t match the top dataset?\n\nfor player_name in list_of_top_n_playernames(top_n=8):\n    sum_goals = season_goals[season_goals[\"player\"] == player_name][\"goals\"].sum()\n    top_goals = top_250[top_250[\"player\"] == player_name][\"total_goals\"].values[0]\n    print(f\"{top_goals - sum_goals}, {player_name}\")\n\n-115, Wayne Gretzky\n-174, Gordie Howe\n-64, Jaromir Jagr\n-32, Brett Hull\n-28, Marcel Dionne\n-35, Phil Esposito\n-139, Mike Gartner\n0, Alex Ovechkin\n\n\n\n\nWhat do the cumulative goals scored look like as a function of age for the top scorers?\n\n# player_name = \"Alex Ovechkin\"\nfig, ax = plt.subplots(figsize=(10, 6))\nfig.patch.set_facecolor(\"w\")\n\nfor player_name in list_of_top_n_playernames(top_n=8):\n    plotdf = game_goals[game_goals[\"player\"] == player_name]\n    ax.plot(plotdf[\"years_old\"], plotdf[\"goals\"].cumsum(), label=player_name)\n\nbox = ax.get_position()\nax.set_position([box.x0, box.y0, box.width * 0.8, box.height])\nax.legend(loc=\"center left\", bbox_to_anchor=(1, 0.5))\nax.set_title(\"Total Goals Scored by Age\")\nax.set_xlabel(\"Age [Years]\")\nax.set_ylabel(\"Goals Scored\")\nfig.tight_layout()"
+  },
+  {
+    "objectID": "core.html#clean-up-notebook",
+    "href": "core.html#clean-up-notebook",
+    "title": "Hockey Goals",
+    "section": "Clean up Notebook",
+    "text": "Clean up Notebook"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "tidytuesday003 – Hockey Goals",
+    "section": "",
+    "text": "This file will become your README and also the index of your documentation."
+  },
+  {
+    "objectID": "index.html#install",
+    "href": "index.html#install",
+    "title": "tidytuesday003 – Hockey Goals",
+    "section": "Install",
+    "text": "Install\npip install tidytuesday003"
+  },
+  {
+    "objectID": "index.html#how-to-use",
+    "href": "index.html#how-to-use",
+    "title": "tidytuesday003 – Hockey Goals",
+    "section": "How to use",
+    "text": "How to use\nFill me in please! Don’t forget code examples:\n\n1+1\n\n2"
+  }
+]
